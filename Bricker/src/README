@@ -1,0 +1,93 @@
+eran.turgeman
+208484147
+
+Classes:
+1) BrickerGameManager: responsible for the whole game logic. creating all participating objects, or calling
+    classes for doing that. inherits from GameManager.
+
+2) gameObjects.Ball: This is the ball object in the game. inherits from GameObject, extends and add some
+    properties to the general GameObject class
+
+3) gameObjects.Paddle: This is the paddle object in the game. inherits from GameObject, extends and add some
+    properties to the general GameObject class
+
+4) gameObjects.Brick: Those are the bricks objects in the game. inherits from GameObject, extends and add some
+    properties to the general GameObject class
+
+5) gameObjects.GraphicLifeCounter: This object represents the hearts that are presented on the screen.
+    inherits form GameObject, extends and add some properties to the general GameObject class
+
+6) gameObjects.NumericLifeCounter: This object represents the numeric counter presented on the screen.
+    inherits form GameObject, extends and add some properties to the general GameObject class
+
+7) gameObjects.BallCollisionCountDownAgent: represents a counter needed for the camera change strategy.
+    inherits form GameObject, extends and add some properties to the general GameObject class
+
+8) gameObjects.MockPaddle: represents another paddle in the game, related to the add paddle strategy.
+    inherits from Paddle and adding some properties to it.
+
+9) gameObjects.Puck: represents a mock ball that is being released upon breaking a brick with PuckStrategy.
+    inherits from Ball.
+
+10) gameObjects.SizeBuffer: represents a buffer that falls from a brick and upon collision with the paddle-
+    changes its size. inherits form GameObject, extends and add some properties to the general GameObject class
+
+11) brick_strategies.CollisionStrategy: An interface that all strategies that can be applied to bricks must
+    implement.
+
+12) brick_strategies.BrickStrategyFactory: a factory class randomly choosing a strategy for a brick from
+    strategies implementing CollisionStrategy.
+
+13) brick_strategies.RemoveBrickStrategyDecorator: a decorator that enable to combine the basic remove
+    strategy with another strategy implementing CollisionStrategy.
+
+14) brick_strategies.RemoveBrickStrategy: basic strategy for a brick being hit- just removes it fro the game
+
+15) brick_strategies.AddPaddleStrategy: a concrete strategy to be applied to a brick. adds another paddle to
+    the game, and being removed after a fixed number of collisions with it
+
+16) brick_strategies.ChangeCameraStrategy: a concrete strategy to be applied to a brick. changes the camera
+    fixed focus to follow the Ball object
+
+17) brick_strategies.MultipleStrategy: a concrete strategy to be applied to a brick. enables to apply several
+    strategies to a brick, up to 3.
+
+18) brick_strategies.SizeChangerStrategy: a concrete strategy to be applied to a brick. when a brick with such
+    a strategy is broken- a buffer drops and if it hits the Paddle it changes its size.
+
+Design Patterns:
+* All concrete brick_strategies has to implement CollisionStrategy interface- for be able to apply them all in
+ the same way, and to set some demands to newly added strategies. I chose this strategy because this is what
+ you demanded, but it makes sense because the reasons I mentioned.
+* All game objects inherit from GameObject or from a class the inherit from it. I chose this design pattern
+ because that is what you demanded, but it makes sense since it enables to reuse communal code between all the
+ objects, to make sure they all have the same basic functionality that works with the danogl package, but also
+ enable to add the specific functionality for each of them.
+* I used Factory strategy (again- demand) but it enables to perform changes in case new strategies are being
+ added, just in a single place
+* I used decorators (demand) because it enables to wrap a basic functionality with other ones, and even with
+ several.
+* I do not fully agree with this design (or more correctly with some of the restrictions gave to us) because
+is does not allow us to use some existing things that can make the code cleaner, more logic, and more
+efficient (for example- you dont allow to override things that arent specifically in the API provided,
+although they are public whether you want or not because they are public in the basic classes we inherit
+from)
+
+Algo:
+1) alotStudyTime: after soring the arrays I am inserting the smaller tasks first to the smaller cells to allow
+ to save the bigger time cells to bigger tasks later on, but with filling all cells as much as possible.
+ TIME: max( O(n log(n), O(m log(m)) ) because of the sort. the pass on the arrays takes O(n + m) after sorting
+
+2) bucketWalk: in each iteration we can proceed from earlier iterations with few options, so we add the
+calculations from the previous 2 iterations and get the calculation for the current one (we saw some
+algorithms like this in ALGO course)
+TIME: O(n) - one pass on the array with fix amount of actions in each move
+
+3) minLeap: in each move we act greedy but partial dynamic- we see what is the best options from the possible
+options, move to the leaf with the biggest possibilities ahead and redo the same action.
+TIME: O(n^2) worst case- because from every cell we at worst case need to scan all the cells ahead up to the
+one before the last. this is arithmetic progression
+
+4) numTrees: this is a known solution based on Catalan number so the calculations are performed the same
+TIME: O(n^2)
+
