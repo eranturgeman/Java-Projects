@@ -5,5 +5,5 @@ Bricker - The classic bricker game, with some extra features
  
 Pepse - infinate world, auto generated, open world game
  
-AsciiTranslator - An image to Ascii Image convertor
+AsciiArt - An image to Ascii Image convertor
 
